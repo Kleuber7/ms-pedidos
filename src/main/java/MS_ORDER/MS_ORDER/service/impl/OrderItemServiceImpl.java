@@ -37,6 +37,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         OrderEntity order = orderRepository.findById(orderItemDto.orderCode())
                 .orElseThrow(OrderItemNotFoundException::new);
 
+
         OrderItemEntity orderItemEntity = orderItemMapper.toEntity(orderItemDto);
         orderItemEntity.setOrder(order);
 

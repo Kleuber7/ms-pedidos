@@ -14,10 +14,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order-items")
-@RequiredArgsConstructor
 public class OrderItemController {
 
     private final OrderItemService orderItemService;
+
+
+    @Autowired
+    public OrderItemController(OrderItemService orderItemService) {
+        this.orderItemService = orderItemService;
+    }
 
     @PostMapping
     @Operation(summary = "Create an order item")

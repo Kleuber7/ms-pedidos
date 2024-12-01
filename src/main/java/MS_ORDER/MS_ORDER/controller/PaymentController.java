@@ -14,10 +14,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/payments")
-@RequiredArgsConstructor
 public class PaymentController {
 
     private final PaymentService paymentService;
+
+
+    @Autowired
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @PostMapping
     @Operation(summary = "Create a payment")

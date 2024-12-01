@@ -26,17 +26,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto createOrder(OrderDto orderDto) {
-        OrderEntity newOrder = OrderEntity.builder()
-                .userCode(orderDto.userCode())
-                .totalPrice(orderDto.totalPrice())
-                .orderStatus(orderDto.orderStatus())
-                .createdAt(LocalDateTime.now())
-                .build();
+        OrderEntity newOrder = new OrderEntity();
+        newOrder.setUserCode(orderDto.userCode());
+        newOrder.setTotalPrice(orderDto.totalPrice());
+        newOrder.setOrderStatus(orderDto.orderStatus());
+        newOrder.setCreatedAt(LocalDateTime.now());
 
         OrderEntity savedOrder = orderRepository.save(newOrder);
         return orderMapper.toDto(savedOrder);
     }
-
 
     @Override
     public Optional<OrderDto> getById(Long id) {
