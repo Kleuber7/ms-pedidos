@@ -1,10 +1,7 @@
 package MS_ORDER.MS_ORDER.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -15,17 +12,16 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "order_item")
 public class OrderItemEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemCode;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_code", nullable = false)
     private OrderEntity order;
 
     private Long productCode;
-
     private BigDecimal price;
-
     private Integer quantity;
+
 }
