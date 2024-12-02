@@ -6,11 +6,11 @@ import lombok.Builder;
 
 import java.math.BigDecimal;
 
-@Builder
 public record OrderItemDto(
-        @NotNull Long orderItemCode,
-        @NotNull Long orderCode,
-        @NotNull Long productCode,
-        @Positive BigDecimal price,
-        @Positive Integer quantity
+        Long orderItemCode,
+        Long orderCode,
+        Long productCode,
+        BigDecimal price,
+        Integer quantity
 ) {}
+

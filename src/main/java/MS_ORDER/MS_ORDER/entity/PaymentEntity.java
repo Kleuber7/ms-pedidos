@@ -14,7 +14,7 @@ public class PaymentEntity {
     private Long paymentCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_code", nullable = false)
+    @JoinColumn(name = "orderCode", nullable = false)
     private OrderEntity order;
 
     @Enumerated(EnumType.STRING)

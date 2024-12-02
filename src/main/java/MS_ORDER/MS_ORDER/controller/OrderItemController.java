@@ -26,7 +26,7 @@ public class OrderItemController {
 
     @PostMapping
     @Operation(summary = "Create an order item")
-    public ResponseEntity<OrderItemDto> createOrderItem(@Valid @RequestBody OrderItemDto orderItemDto) {
+    public ResponseEntity<OrderItemDto> createOrderItem(@RequestBody OrderItemDto orderItemDto) {
         OrderItemDto createdOrderItem = orderItemService.createOrderItem(orderItemDto);
         return new ResponseEntity<>(createdOrderItem, HttpStatus.CREATED);
     }
