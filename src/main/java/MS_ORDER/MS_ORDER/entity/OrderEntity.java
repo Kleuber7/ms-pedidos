@@ -16,6 +16,7 @@ public class OrderEntity {
     private Long orderCode;
 
     private Long userCode;
+
     private BigDecimal totalPrice;
 
     @Enumerated(EnumType.STRING)

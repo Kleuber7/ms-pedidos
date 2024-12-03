@@ -4,7 +4,7 @@ import MS_ORDER.MS_ORDER.dto.OrderDetailDto;
 import MS_ORDER.MS_ORDER.entity.OrderEntity;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {OrderItemMapper.class})
 public interface OrderDetailMapper {
 
     OrderDetailDto toDto(OrderEntity orderEntity);
