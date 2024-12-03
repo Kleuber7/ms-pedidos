@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("product")
 public interface ProductOrder {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/product/{id'}")
+    @RequestMapping(method = RequestMethod.GET, value = "/product/{id}")
     ProductDetailDto customerSearch (@PathVariable("id")  Long id);
 
 

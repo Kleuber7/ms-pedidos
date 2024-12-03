@@ -1,14 +1,15 @@
 package MS_ORDER.MS_ORDER.service;
 
-import MS_ORDER.MS_ORDER.domain.OrderDto;
-import MS_ORDER.MS_ORDER.entity.OrderEntity;
+import MS_ORDER.MS_ORDER.dto.OrderDetailDto;
+import MS_ORDER.MS_ORDER.dto.OrderDto;
+import MS_ORDER.MS_ORDER.dto.OrderInfoDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface OrderService {
 
-    public OrderDto createOrder(OrderDto orderDto);
+    public OrderDetailDto createOrder(OrderInfoDto orderDto);
 
     public Optional<OrderDto> getById(Long id);
 

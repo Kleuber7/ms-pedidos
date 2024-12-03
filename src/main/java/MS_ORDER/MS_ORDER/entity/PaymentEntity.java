@@ -1,7 +1,7 @@
 package MS_ORDER.MS_ORDER.entity;
 
-import MS_ORDER.MS_ORDER.domain.PaymentMethod;
-import MS_ORDER.MS_ORDER.domain.PaymentStatus;
+import MS_ORDER.MS_ORDER.dto.PaymentMethod;
+import MS_ORDER.MS_ORDER.dto.PaymentStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 

@@ -1,9 +1,11 @@
 package MS_ORDER.MS_ORDER.entity;
 
-import MS_ORDER.MS_ORDER.domain.OrderStatus;
+import MS_ORDER.MS_ORDER.dto.OrderStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -19,7 +21,11 @@ public class OrderEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus = OrderStatus.PENDING;
 
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderItemEntity> orderItems;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
 
     public OrderEntity() {}
@@ -76,5 +82,13 @@ public class OrderEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<OrderItemEntity> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItemEntity> orderItems) {
+        this.orderItems = orderItems;
     }
 }

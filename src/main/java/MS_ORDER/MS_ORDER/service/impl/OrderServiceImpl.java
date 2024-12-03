@@ -1,10 +1,13 @@
 package MS_ORDER.MS_ORDER.service.impl;
 
-import MS_ORDER.MS_ORDER.domain.OrderDto;
-import MS_ORDER.MS_ORDER.domain.OrderItemDto;
+import MS_ORDER.MS_ORDER.dto.OrderDetailDto;
+import MS_ORDER.MS_ORDER.dto.OrderDto;
+import MS_ORDER.MS_ORDER.dto.OrderInfoDto;
+import MS_ORDER.MS_ORDER.dto.OrderItemDto;
 import MS_ORDER.MS_ORDER.entity.OrderEntity;
 import MS_ORDER.MS_ORDER.exception.OrderNotFoundException;
 import MS_ORDER.MS_ORDER.http.ClientOrder;
+import MS_ORDER.MS_ORDER.mapper.OrderDetailMapper;
 import MS_ORDER.MS_ORDER.mapper.OrderMapper;
 import MS_ORDER.MS_ORDER.repository.OrderRepository;
 import MS_ORDER.MS_ORDER.service.OrderService;
@@ -24,12 +27,16 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final ClientOrder clientOrder;
+    private final OrderDetailMapper orderDetailMapper;
+    private final OrderItemServiceImpl orderItemServiceImpl;
 
 
 
     @Override
-    public OrderDto createOrder(OrderDto orderDto) {
+    public OrderDetailDto createOrder(OrderInfoDto orderDto) {
         OrderEntity newOrder = new OrderEntity();
+
+        var listItem = orderItemServiceImpl.findAllOrderItemById(orderDto.userCode());
 
         var cliente =  clientOrder.customerSearch(orderDto.userCode());
 
@@ -37,9 +44,13 @@ public class OrderServiceImpl implements OrderService {
         newOrder.setTotalPrice(calculateTotalPrice(orderDto.orderItems()));
         newOrder.setCreatedAt(LocalDateTime.now());
 
+        listItem.forEach(item -> item.setOrder(newOrder));
+        newOrder.setOrderItems(listItem);
+
+
 
         OrderEntity savedOrder = orderRepository.save(newOrder);
-        return orderMapper.toDto(savedOrder);
+        return orderDetailMapper.toDto(savedOrder);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package MS_ORDER.MS_ORDER.service;
 
-import MS_ORDER.MS_ORDER.domain.PaymentDto;
+import MS_ORDER.MS_ORDER.dto.PaymentDto;
 
 import java.util.List;
 

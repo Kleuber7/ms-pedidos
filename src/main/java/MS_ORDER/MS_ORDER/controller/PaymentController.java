@@ -1,10 +1,8 @@
 package MS_ORDER.MS_ORDER.controller;
 
-import MS_ORDER.MS_ORDER.domain.PaymentDto;
+import MS_ORDER.MS_ORDER.dto.PaymentDto;
 import MS_ORDER.MS_ORDER.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

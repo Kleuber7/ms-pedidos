@@ -1,9 +1,10 @@
 package MS_ORDER.MS_ORDER.controller;
 
-import MS_ORDER.MS_ORDER.domain.OrderDto;
+import MS_ORDER.MS_ORDER.dto.OrderDetailDto;
+import MS_ORDER.MS_ORDER.dto.OrderDto;
+import MS_ORDER.MS_ORDER.dto.OrderInfoDto;
 import MS_ORDER.MS_ORDER.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,9 @@ public class OrderController {
 
     @PostMapping
     @Operation(summary = "Create an order")
-    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
-        OrderDto createdOrder = orderService.createOrder(orderDto);
+    public ResponseEntity<OrderDetailDto> createOrder(@RequestBody OrderInfoDto orderDto) {
+        OrderDetailDto createdOrder = orderService.createOrder(orderDto);
+
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 

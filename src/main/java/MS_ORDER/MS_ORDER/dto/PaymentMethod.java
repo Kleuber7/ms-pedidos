@@ -1,4 +1,4 @@
-package MS_ORDER.MS_ORDER.domain;
+package MS_ORDER.MS_ORDER.dto;
 
 public enum PaymentMethod {
     CREDIT_CARD,

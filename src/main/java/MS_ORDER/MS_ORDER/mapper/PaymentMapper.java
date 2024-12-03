@@ -1,6 +1,6 @@
 package MS_ORDER.MS_ORDER.mapper;
 
-import MS_ORDER.MS_ORDER.domain.PaymentDto;
+import MS_ORDER.MS_ORDER.dto.PaymentDto;
 import MS_ORDER.MS_ORDER.entity.PaymentEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

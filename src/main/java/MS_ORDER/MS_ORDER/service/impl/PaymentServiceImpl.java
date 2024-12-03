@@ -1,8 +1,8 @@
 package MS_ORDER.MS_ORDER.service.impl;
 
-import MS_ORDER.MS_ORDER.domain.OrderStatus;
-import MS_ORDER.MS_ORDER.domain.PaymentDto;
-import MS_ORDER.MS_ORDER.domain.PaymentStatus;
+import MS_ORDER.MS_ORDER.dto.OrderStatus;
+import MS_ORDER.MS_ORDER.dto.PaymentDto;
+import MS_ORDER.MS_ORDER.dto.PaymentStatus;
 import MS_ORDER.MS_ORDER.entity.OrderEntity;
 import MS_ORDER.MS_ORDER.entity.PaymentEntity;
 import MS_ORDER.MS_ORDER.exception.OrderNotFoundException;
