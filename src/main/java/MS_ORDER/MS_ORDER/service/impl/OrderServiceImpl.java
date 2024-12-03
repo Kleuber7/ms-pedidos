@@ -1,36 +1,43 @@
 package MS_ORDER.MS_ORDER.service.impl;
 
 import MS_ORDER.MS_ORDER.domain.OrderDto;
+import MS_ORDER.MS_ORDER.domain.OrderItemDto;
 import MS_ORDER.MS_ORDER.entity.OrderEntity;
 import MS_ORDER.MS_ORDER.exception.OrderNotFoundException;
+import MS_ORDER.MS_ORDER.http.ClientOrder;
 import MS_ORDER.MS_ORDER.mapper.OrderMapper;
 import MS_ORDER.MS_ORDER.repository.OrderRepository;
 import MS_ORDER.MS_ORDER.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private final ClientOrder clientOrder;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper) {
-        this.orderRepository = orderRepository;
-        this.orderMapper = orderMapper;
-    }
+
 
     @Override
     public OrderDto createOrder(OrderDto orderDto) {
         OrderEntity newOrder = new OrderEntity();
-        newOrder.setUserCode(orderDto.userCode());
-        newOrder.setTotalPrice(orderDto.totalPrice());
+
+        var cliente =  clientOrder.customerSearch(orderDto.userCode());
+
+        newOrder.setUserCode(cliente.getId());
+        newOrder.setTotalPrice(calculateTotalPrice(orderDto.orderItems()));
         newOrder.setOrderStatus(orderDto.orderStatus());
         newOrder.setCreatedAt(LocalDateTime.now());
+
 
         OrderEntity savedOrder = orderRepository.save(newOrder);
         return orderMapper.toDto(savedOrder);
@@ -78,4 +85,12 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(OrderNotFoundException::new);
         orderRepository.delete(order);
     }
+
+    private BigDecimal calculateTotalPrice(List<OrderItemDto> orderItems) {
+        return orderItems.stream()
+                .map(OrderItemDto::price)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+
 }
