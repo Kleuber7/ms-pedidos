@@ -10,15 +10,13 @@ public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemCode;
+    private Long productCode;
+    private BigDecimal price;
+    private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_code", nullable = false)
     private OrderEntity order;
-
-
-    private Long productCode;
-    private BigDecimal price;
-    private Integer quantity;
 
     public OrderItemEntity() {}
 
