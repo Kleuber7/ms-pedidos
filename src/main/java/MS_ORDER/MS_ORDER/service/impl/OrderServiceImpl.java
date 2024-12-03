@@ -35,7 +35,6 @@ public class OrderServiceImpl implements OrderService {
 
         newOrder.setUserCode(cliente.getId());
         newOrder.setTotalPrice(calculateTotalPrice(orderDto.orderItems()));
-        newOrder.setOrderStatus(orderDto.orderStatus());
         newOrder.setCreatedAt(LocalDateTime.now());
 
 
@@ -68,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
             existingOrder.setUserCode(orderDto.userCode());
         }
         if (orderDto.totalPrice() != null) {
-            existingOrder.setTotalPrice(orderDto.totalPrice());
+            existingOrder.setTotalPrice(calculateTotalPrice(orderDto.orderItems()));
         }
         if (orderDto.orderStatus() != null) {
             existingOrder.setOrderStatus(orderDto.orderStatus());
