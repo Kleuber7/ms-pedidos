@@ -5,6 +5,7 @@ import MS_ORDER.MS_ORDER.dto.OrderDto;
 import MS_ORDER.MS_ORDER.dto.OrderInfoDto;
 import MS_ORDER.MS_ORDER.dto.OrderItemDto;
 import MS_ORDER.MS_ORDER.entity.OrderEntity;
+import MS_ORDER.MS_ORDER.entity.OrderItemEntity;
 import MS_ORDER.MS_ORDER.exception.OrderNotFoundException;
 import MS_ORDER.MS_ORDER.http.ClientOrder;
 import MS_ORDER.MS_ORDER.mapper.OrderDetailMapper;
@@ -36,12 +37,13 @@ public class OrderServiceImpl implements OrderService {
     public OrderDetailDto createOrder(OrderInfoDto orderDto) {
         OrderEntity newOrder = new OrderEntity();
 
-        var listItem = orderItemServiceImpl.findAllOrderItemById(orderDto.userCode());
+        List<OrderItemEntity> listItem = orderItemServiceImpl.findAllOrderItemById(orderDto.orderCode());
+
 
         var cliente =  clientOrder.customerSearch(orderDto.userCode());
 
         newOrder.setUserCode(cliente.getId());
-        newOrder.setTotalPrice(calculateTotalPrice(orderDto.orderItems()));
+        newOrder.setTotalPrice(calculateTotalPrice(listItem));
         newOrder.setCreatedAt(LocalDateTime.now());
 
         listItem.forEach(item -> item.setOrder(newOrder));
@@ -77,9 +79,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderDto.userCode() != null) {
             existingOrder.setUserCode(orderDto.userCode());
         }
-        if (orderDto.totalPrice() != null) {
-            existingOrder.setTotalPrice(calculateTotalPrice(orderDto.orderItems()));
-        }
+
         if (orderDto.orderStatus() != null) {
             existingOrder.setOrderStatus(orderDto.orderStatus());
         }
@@ -96,9 +96,9 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.delete(order);
     }
 
-    private BigDecimal calculateTotalPrice(List<OrderItemDto> orderItems) {
+    private BigDecimal calculateTotalPrice(List<OrderItemEntity> orderItems) {
         return orderItems.stream()
-                .map(OrderItemDto::price)
+                .map(OrderItemEntity::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

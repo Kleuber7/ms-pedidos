@@ -26,6 +26,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     private final ProductOrder productOrder;
 
 
+
     @Override
     public OrderItemDto createOrderItem(OrderItemDto orderItemDto) {
 
@@ -36,8 +37,13 @@ public class OrderItemServiceImpl implements OrderItemService {
         OrderEntity order = orderRepository.findById(orderItemDto.order())
                 .orElseThrow(OrderItemNotFoundException::new);
 
-        var product = productOrder.customerSearch(orderItemDto.productCode());
 
+
+
+
+        var product = productOrder.productSearch(orderItemDto.productCode());
+
+        order.setTotalPrice(order.getTotalPrice().add(BigDecimal.valueOf(product.price())));
 
         OrderItemEntity orderItemEntity = orderItemMapper.toEntity(orderItemDto);
         orderItemEntity.setOrder(order);

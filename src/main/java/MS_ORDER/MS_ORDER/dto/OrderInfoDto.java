@@ -6,6 +6,8 @@ public record OrderInfoDto(
 
         Long userCode,
 
+        Long orderCode,
+
         List<OrderItemDto> orderItems
 ) {
 }
